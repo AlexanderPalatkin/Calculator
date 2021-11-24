@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CalculatorTextView">
+        <item name="android:layout_height">@dimen/input_screen_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/input_screen_background</item>
+        <item name="android:textSize">@dimen/input_screen_text_size</item>
+        <item name="android:textColor">@color/input_screen_text_color</item>
+    </style>
+
+    <style name="CalculatorButton">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">@dimen/button_width</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">@dimen/button_margin</item>
+        <item name="android:textColor">@color/text_button_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/stroke_color</item>
+    </style>
+
+    <style name="CalculatorButton.Number">
+        <item name="android:backgroundTint">@color/number_button_color</item>
+    </style>
+
+    <style name="CalculatorButton.Operation">
+        <item name="android:backgroundTint">@color/operation_button_color</item>
+    </style>
+</resources>
