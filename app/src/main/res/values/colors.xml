@@ -13,6 +13,8 @@
     <color name="input_screen_background">#66D5F4F8</color>
     <color name="input_screen_text_color">#001B1E</color>
     <color name="stroke_color">#66D5F4F8</color>
+    <color name="theme_color_primary">#7E8C8E</color>
+
 
 
 </resources>
