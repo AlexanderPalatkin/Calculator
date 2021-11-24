@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="number_button_color">#00C9E3</color>
+    <color name="operation_button_color">#008D9F</color>
+    <color name="text_button_color">#001F23</color>
+    <color name="input_screen_background">#66D5F4F8</color>
+    <color name="input_screen_text_color">#001B1E</color>
+    <color name="stroke_color">#66D5F4F8</color>
+    <color name="theme_color_primary">#7E8C8E</color>
+
+
+
 </resources>
