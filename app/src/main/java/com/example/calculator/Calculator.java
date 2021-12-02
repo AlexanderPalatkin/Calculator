@@ -1,6 +1,20 @@
 package com.example.calculator;
 
-public class Calculator {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Calculator implements Parcelable {
+    public static final Creator<Calculator> CREATOR = new Creator<Calculator>() {
+        @Override
+        public Calculator createFromParcel(Parcel in) {
+            return new Calculator(in);
+        }
+
+        @Override
+        public Calculator[] newArray(int size) {
+            return new Calculator[size];
+        }
+    };
     private String firstValue = "";
     private String secondValue = "";
     private String operand = "";
@@ -8,6 +22,22 @@ public class Calculator {
     private Boolean isCalculated = false;
     private Boolean isEmptySecondField = true;
     private Boolean isEmptyOperand = true;
+
+    public Calculator() {
+    }
+
+    protected Calculator(Parcel in) {
+        firstValue = in.readString();
+        secondValue = in.readString();
+        operand = in.readString();
+        result = in.readString();
+        byte tmpIsCalculated = in.readByte();
+        isCalculated = tmpIsCalculated == 0 ? null : tmpIsCalculated == 1;
+        byte tmpIsEmptySecondField = in.readByte();
+        isEmptySecondField = tmpIsEmptySecondField == 0 ? null : tmpIsEmptySecondField == 1;
+        byte tmpIsEmptyOperand = in.readByte();
+        isEmptyOperand = tmpIsEmptyOperand == 0 ? null : tmpIsEmptyOperand == 1;
+    }
 
     public String getFirstValue() {
         return firstValue;
@@ -114,42 +144,44 @@ public class Calculator {
     }
 
     public void setResult() {
-        if (secondValue.equals("-")) {
-            secondValue = "0";
-            isEmptySecondField = true;
-        } else if (secondValue.charAt(secondValue.length() - 1) == '.') {
-            secondValue += "0";
-        } else if (secondValue.equals("-0.0")) {
-            secondValue = secondValue.substring(1);
-        }
-        if (!isEmptySecondField) {
-            double value1 = Double.parseDouble(firstValue);
-            double value2 = Double.parseDouble(secondValue);
-            double resultValue;
-            switch (operand) {
-                case "+": {
-                    resultValue = (value1 + value2);
-                    checkRemainderOfResult(resultValue);
-                    isResult();
-                    break;
-                }
-                case "-": {
-                    resultValue = (value1 - value2);
-                    checkRemainderOfResult(resultValue);
-                    isResult();
-                    break;
-                }
-                case "*": {
-                    resultValue = (value1 * value2);
-                    checkRemainderOfResult(resultValue);
-                    isResult();
-                    break;
-                }
-                case "/": {
-                    resultValue = (value1 / value2);
-                    checkRemainderOfResult(resultValue);
-                    isResult();
-                    break;
+        if (!isCalculated) {
+            if (secondValue.equals("-")) {
+                secondValue = "0";
+                isEmptySecondField = true;
+            } else if (!isEmptySecondField && secondValue.charAt(secondValue.length() - 1) == '.') {
+                secondValue += "0";
+            } else if (secondValue.equals("-0.0")) {
+                secondValue = secondValue.substring(1);
+            }
+            if (!isEmptySecondField) {
+                double value1 = Double.parseDouble(firstValue);
+                double value2 = Double.parseDouble(secondValue);
+                double resultValue;
+                switch (operand) {
+                    case "+": {
+                        resultValue = (value1 + value2);
+                        checkRemainderOfResult(resultValue);
+                        isResult();
+                        break;
+                    }
+                    case "-": {
+                        resultValue = (value1 - value2);
+                        checkRemainderOfResult(resultValue);
+                        isResult();
+                        break;
+                    }
+                    case "*": {
+                        resultValue = (value1 * value2);
+                        checkRemainderOfResult(resultValue);
+                        isResult();
+                        break;
+                    }
+                    case "/": {
+                        resultValue = (value1 / value2);
+                        checkRemainderOfResult(resultValue);
+                        isResult();
+                        break;
+                    }
                 }
             }
         }
@@ -205,5 +237,21 @@ public class Calculator {
         } else {
             return value;
         }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(firstValue);
+        parcel.writeString(secondValue);
+        parcel.writeString(operand);
+        parcel.writeString(result);
+        parcel.writeByte((byte) (isCalculated == null ? 0 : isCalculated ? 1 : 2));
+        parcel.writeByte((byte) (isEmptySecondField == null ? 0 : isEmptySecondField ? 1 : 2));
+        parcel.writeByte((byte) (isEmptyOperand == null ? 0 : isEmptyOperand ? 1 : 2));
     }
 }

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.calculator.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String CALCULATOR = "CALCULATOR";
     private ActivityMainBinding binding;
 
     private Calculator calculator = new Calculator();
@@ -116,5 +117,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putParcelable(CALCULATOR, calculator);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        calculator = savedInstanceState.getParcelable(CALCULATOR);
+        if (calculator == null) {
+            calculator = new Calculator();
+        }
+        initFields();
     }
 }
