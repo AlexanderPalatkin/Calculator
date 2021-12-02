@@ -28,7 +28,8 @@
 
         <TextView
             android:id="@+id/operation_input_text_view"
-            style="@style/CalculatorTextView" />
+            style="@style/CalculatorTextView"
+            />
 
         <TextView
             android:id="@+id/second_input_text_view"
